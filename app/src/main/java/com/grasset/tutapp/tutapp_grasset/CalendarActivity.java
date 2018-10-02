@@ -2,56 +2,37 @@ package com.grasset.tutapp.tutapp_grasset;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    TabLayout myNavBar;
+    Button buttonNewTutor,buttonReturn;
+    String USER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        initMyNavBar();
+        getExtras();
 
-        myNavBar.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        buttonNewTutor = findViewById(R.id.buttonNewTutorat);
+        buttonReturn = findViewById(R.id.returnButton);
+
+        buttonNewTutor.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()) {
-                    case 0:
-                        System.out.println("CASE 0 - ENTROU");
-                        MainActivity();
-                        break;
-                    case 1:
-                        System.out.println("CASE 1 - ENTROU");
-                        CoursActivity();
-                        break;
-                    case 2:
-                        System.out.println("CASE 2 - ENTROU");
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onClick(View v) {
+                CoursActivity();
             }
         });
-    }
-
-    private void initMyNavBar() {
-        myNavBar = findViewById(R.id.myNavBar);
-
-        myNavBar.addTab(myNavBar.newTab().setText("Calendrier"));
-        myNavBar.addTab(myNavBar.newTab().setText("New tutorat"));
-
+        buttonReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity();
+            }
+        });
     }
 
     private void MainActivity() {
@@ -60,6 +41,13 @@ public class CalendarActivity extends AppCompatActivity {
     }
     private void CoursActivity() {
         Intent intent = new Intent(this, CoursActivity.class);
+        intent.putExtra("USER_ID", USER_ID);
         startActivity(intent);
+    }
+    private void getExtras() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            USER_ID = extras.getString("USER_ID");
+        }
     }
 }

@@ -16,48 +16,36 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/tl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
-                <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/calendarView"
+                <LinearLayout
+                    android:id="@+id/calendar1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:mcv_calendarMode="month"
-                    app:mcv_selectionColor="#00F"
-                    app:mcv_showOtherDates="all" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="17h30 - 18h45" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView"
+                <TableLayout
+                    android:id="@+id/t1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="14h30 - 15h30" />
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="8h00 - 10h45" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
 
-                <TimePicker
-                    android:id="@+id/timePicker1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:timePickerMode="spinner"
-                    tools:layout_editor_absoluteY="338dp" />
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TextView" />
+                    </TableRow>
+                </TableLayout>
+
             </LinearLayout>
         </ScrollView>
 

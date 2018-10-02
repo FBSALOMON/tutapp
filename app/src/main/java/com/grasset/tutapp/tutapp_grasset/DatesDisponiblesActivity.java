@@ -13,10 +13,14 @@ import android.widget.Toast;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+
 
 public class DatesDisponiblesActivity extends AppCompatActivity {
 
@@ -45,7 +49,8 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
 
         caldroidFragment.setMinDate(lastDate);
 
-        args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.MONDAY );
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
 
         final CaldroidListener listener = new CaldroidListener() {
@@ -110,6 +115,7 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
 
             myCoursButton.setOnClickListener(new View.OnClickListener() {
                 @Override
+
                 public void onClick(View view) {
                     System.out.println(myListHours.get(index));
                     HourDisponibleActivity();
@@ -141,6 +147,17 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
 
             caldroidFragment.setTextColorForDate(R.color.caldroid_light_red, tomorrow);
         }
-    }
+        HashMap<Date, Integer> testPQP = new HashMap<>();
 
+        DateTime dateTime = new DateTime(2018,9,28,12,00);
+        DateTime dateTime2 = new DateTime(2018,9,30,12,00);
+        Date dateYouWant = dateTime.toDate();
+        Date dateYouWant2 = dateTime2.toDate();
+
+        Integer blue = (R.color.caldroid_light_red);
+        testPQP.put(dateYouWant,blue);
+        testPQP.put(dateYouWant2,blue);
+
+        caldroidFragment.setTextColorForDates(testPQP);
+    }
 }
