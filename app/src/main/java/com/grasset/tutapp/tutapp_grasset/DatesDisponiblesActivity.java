@@ -30,6 +30,7 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
     TableRow tr;
     Button myCoursButton;
     ArrayList<String> myListHours = new ArrayList<>();
+    DataManager dataManager = DataManager.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +118,8 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
                 @Override
 
                 public void onClick(View view) {
-                    System.out.println(myListHours.get(index));
+                    dataManager.setMyDataInterval(myListHours.get(index));
+                    dataManager.setMyDate(lastDate.toString());
                     HourDisponibleActivity();
                 }
             });
@@ -133,6 +135,7 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
     private void HourDisponibleActivity() {
         Intent intent = new Intent(this, HourDisponibleActivity.class);
         startActivity(intent);
+        finish();
     }
 
     //TODO CHANGE FOR JSON FILE

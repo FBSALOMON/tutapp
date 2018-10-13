@@ -16,6 +16,7 @@ public class TutorActivity extends AppCompatActivity {
     TableLayout t1;
     TableRow tr;
     Button myCoursButton;
+    DataManager dataManager = DataManager.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class TutorActivity extends AppCompatActivity {
             myCoursButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println(myListTutor.get(index));
+                    dataManager.setMyTutor(myListTutor.get(index));
                     DatesDisponiblesActivity();
                 }
             });
@@ -59,5 +60,6 @@ public class TutorActivity extends AppCompatActivity {
     private void DatesDisponiblesActivity() {
         Intent intent = new Intent(this, DatesDisponiblesActivity.class);
         startActivity(intent);
+        finish();
     }
 }

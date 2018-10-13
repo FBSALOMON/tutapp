@@ -16,18 +16,18 @@ public class HourDisponibleActivity extends AppCompatActivity {
     TableLayout t1;
     TableRow tr;
     Button hourButton;
+    DataManager dataManager = DataManager.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hour_disponible);
 
+
         t1 = (TableLayout) findViewById(R.id.t1);
         t1.setStretchAllColumns(true);
 
-        myListHours.add("10h30 - 11h30");
-        myListHours.add("10h45 - 11h45");
-        myListHours.add("11h00 - 12h00");
+        myListHours = dataManager.myDataIntervalToList();
 
         resetTableLayout();
         getHoursAvailable(myListHours);
@@ -50,7 +50,7 @@ public class HourDisponibleActivity extends AppCompatActivity {
                 @Override
 
                 public void onClick(View view) {
-                    System.out.println(myListHours.get(index));
+                    dataManager.setMyHour(myListHours.get(index));
                     ShoppingActivity();
                 }
             });
@@ -66,5 +66,6 @@ public class HourDisponibleActivity extends AppCompatActivity {
     private void ShoppingActivity() {
         Intent intent = new Intent(this, ShoppingActivity.class);
         startActivity(intent);
+        finish();
     }
 }
