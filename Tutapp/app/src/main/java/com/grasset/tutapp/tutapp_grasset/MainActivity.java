@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         myUser = findViewById(R.id.myUser);
         myPassword = findViewById(R.id.myPassword);
 
-        myUser.setText("opfeffer@example.org");
+        myUser.setText("kerluke.cecil@example.net");
         myPassword.setText("secret");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
             String myTutoratID = jsonObject.optString("id");
             String myTutoratStatus = jsonObject.optString("status");
             String[] myTutorat = {myTutorName,myTutoratDate,myTutorathrstart,myTutorathrfinish,myTutoratID,myTutoratStatus};
-
             myTutoratList.add(myTutorat);
         }
         dataManager.setMyTutoratList(myTutoratList);

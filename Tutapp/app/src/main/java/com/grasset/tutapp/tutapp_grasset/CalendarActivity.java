@@ -12,6 +12,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,21 +29,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CalendarActivity extends AppCompatActivity {
 
     private static final String TAG = CalendarActivity.class.getName();
     private String URL_POST = "http://10.0.2.2:8000/api/userprograms/";
+    private String URL_POST_CONFIRMTUTORAT = "http://10.0.2.2:8000/api/tutorat/status/";
     Button buttonNewTutor,buttonReturn;
     TextView textView;
     HashMap<String, Integer> myListCours = new HashMap<>();
     ArrayList<String[]> datesFormated = new ArrayList<>();
     ArrayList<String[]> myListHours = new ArrayList<>();
+    ArrayList<Object[]> myListTutorats = new ArrayList<>();
     DataManager dataManager = DataManager.getInstance();
     private CaldroidFragment caldroidFragment;
     private Date lastDate;
@@ -55,6 +60,8 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        getMyTutorats();
 
         myTutoratList = dataManager.getMyTutoratList();
 
@@ -259,11 +266,114 @@ public class CalendarActivity extends AppCompatActivity {
 
             textView = new TextView(getApplication());
             textView.setText(myListHours.get(i)[0] + " - " + myListHours.get(i)[1]);
+            final Button buttonConfirm = new Button(getApplication());
+            buttonConfirm.setText("Confirm");
 
             tr.setId(i);
             tr.addView(textView);
+            tr.addView(buttonConfirm);
+
+            buttonConfirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TableRow t = (TableRow) view.getParent();
+                    final TextView firstTextView = (TextView) t.getChildAt(0);
+                    Button b = (Button) t.getChildAt(1);
+                    final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    String date = formatter.format(lastDate);
+                    String[] hour = firstTextView.getText().toString().split(" ");
+                    String hrstart = hour[0] + ":00";
+
+                    for (int i = 0; i < myListTutorats.size();i++) {
+                        if(date.equals(myListTutorats.get(i)[2]) && hrstart.equals(myListTutorats.get(i)[3]) && myListTutorats.get(i)[1].equals(0)) {
+                            confirmTutorat(myListTutorats.get(i)[0].toString());
+                        }
+                    }
+                    b.setEnabled(false);
+                }
+            });
+
             t1.addView(tr);
         }
+    }
+
+    private void getMyTutorats() {
+        final String URL_POST_COURS = "http://10.0.2.2:8000/api/tutorat/student/" + dataManager.getMyId();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_POST_COURS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG,"Response :" + response.toString());
+                try {
+                    myJsonParserTutorats(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplication(),"ERROR",Toast.LENGTH_SHORT).show();
+            }
+        }){
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void myJsonParserTutorats(String response) throws JSONException {
+        JSONArray jsonArray = new JSONArray(response);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            Integer id = jsonObject.optInt("id");
+            Integer status = jsonObject.optInt("status");
+            String dtavailability = jsonObject.optString("dtavailability");
+            String hrstart = jsonObject.optString("hrstart");
+            String hrfinish = jsonObject.optString("hrfinish");
+            String name = jsonObject.optString("name");
+            Object[] myTutorat = {id,status, dtavailability, hrstart, hrfinish, name};
+            myListTutorats.add(myTutorat);
+        }
+    }
+
+    private void confirmTutorat(String idTutorat) {
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getApplication(), "Tutorat Confirmed", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "Response :" + response.toString());
+                try {
+                    myJsonParserToken(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplication(), "Something went wrong call the adminstator", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST_CONFIRMTUTORAT + idTutorat, listener, errorListener) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        int socketTimeout = 30000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
+    }
+
+    private void myJsonParserToken(String response) throws JSONException {
+        System.out.println(response);
     }
 
 }
