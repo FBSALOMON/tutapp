@@ -86,7 +86,7 @@ public class TutorActivity extends AppCompatActivity {
     }
 
     private void getDatesDisponibles() {
-        final String URL_POST_COURS = "http://10.0.2.2:8000/api/calendar/" + dataManager.getMyTutorId() + "/tutor/" + dataManager.getMyId() ;
+        final String URL_POST_COURS = "https://tutapp-rs.herokuapp.com/api/calendar/" + dataManager.getMyTutorId() + "/tutor/" + dataManager.getMyId() ;
         System.out.println(URL_POST_COURS);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_POST_COURS, new Response.Listener<String>() {
             @Override

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     Button loginButton;
     TextView myUser, myPassword;
-    private String URL_POST = "http://10.0.2.2:8000/api/login";
+    private String URL_POST = "https://tutapp-rs.herokuapp.com/api/login";
     DataManager dataManager = DataManager.getInstance();
     ArrayList<String[]> myTutoratList = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         myUser = findViewById(R.id.myUser);
         myPassword = findViewById(R.id.myPassword);
 
-        myUser.setText("kerluke.cecil@example.net");
+        myUser.setText("ned.cassin@example.com");
         myPassword.setText("secret");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getMyTutors() {
-        final String URL_POST_COURS = "http://10.0.2.2:8000/api/tutorat/student/" + dataManager.getMyId();
+        final String URL_POST_COURS = "https://tutapp-rs.herokuapp.com/api/tutorat/student/" + dataManager.getMyId();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_POST_COURS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

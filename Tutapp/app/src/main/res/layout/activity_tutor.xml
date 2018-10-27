@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgtutor"
     tools:context="com.grasset.tutapp.tutapp_grasset.TutorActivity">
 
     <LinearLayout
@@ -19,12 +20,14 @@
                 android:id="@+id/tl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TableLayout
                     android:id="@+id/t1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <TableRow
                         android:id="@+id/tr"

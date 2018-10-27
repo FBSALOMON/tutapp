@@ -4,41 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal|center"
+    android:background="@drawable/bgconfirmation"
     tools:context="com.grasset.tutapp.tutapp_grasset.ShoppingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/coursLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/tutorLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/dateLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/hourLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="TextView" />
 
         <Button
             android:id="@+id/confirmationButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
             android:text="Confirmation" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

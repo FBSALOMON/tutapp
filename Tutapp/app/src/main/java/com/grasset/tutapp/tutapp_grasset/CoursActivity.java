@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -82,7 +84,7 @@ public class CoursActivity extends AppCompatActivity {
     }
 
     private void getMyTutors() {
-        final String URL_POST_COURS = "http://10.0.2.2:8000/api/courses/" + dataManager.getMyCoursSelected() + "/tutors";
+        final String URL_POST_COURS = "https://tutapp-rs.herokuapp.com/api/courses/" + dataManager.getMyCoursSelected() + "/tutors";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_POST_COURS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

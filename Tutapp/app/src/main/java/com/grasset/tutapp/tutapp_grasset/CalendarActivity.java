@@ -40,8 +40,8 @@ import java.util.Map;
 public class CalendarActivity extends AppCompatActivity {
 
     private static final String TAG = CalendarActivity.class.getName();
-    private String URL_POST = "http://10.0.2.2:8000/api/userprograms/";
-    private String URL_POST_CONFIRMTUTORAT = "http://10.0.2.2:8000/api/tutorat/status/";
+    private String URL_POST = "https://tutapp-rs.herokuapp.com/api/userprograms/";
+    private String URL_POST_CONFIRMTUTORAT = "https://tutapp-rs.herokuapp.com/api/tutorat/status/";
     Button buttonNewTutor,buttonReturn;
     TextView textView;
     HashMap<String, Integer> myListCours = new HashMap<>();
@@ -193,7 +193,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void getMyCours() {
-        final String URL_POST_COURS = "http://10.0.2.2:8000/api/programs/" + dataManager.getMyCoursID() + "/courses";
+        final String URL_POST_COURS = "https://tutapp-rs.herokuapp.com/api/programs/" + dataManager.getMyCoursID() + "/courses";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_POST_COURS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -231,7 +231,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void showDaysAvaibles() {
-        HashMap<Date, Integer> testPQP = new HashMap<>();
+        HashMap<Date, Integer> dateAndColor = new HashMap<>();
 
         for (int i = 0; i < myTutoratList.size(); i++) {
             String date[] = myTutoratList.get(i)[1].split("-");
@@ -253,9 +253,9 @@ public class CalendarActivity extends AppCompatActivity {
             DateTime dateTime = new DateTime(year,month,day,00,00);
             Date dateYouWant = dateTime.toDate();
             Integer blue = (R.color.caldroid_light_red);
-            testPQP.put(dateYouWant,blue);
+            dateAndColor.put(dateYouWant,blue);
         }
-        caldroidFragment.setTextColorForDates(testPQP);
+        caldroidFragment.setTextColorForDates(dateAndColor);
     }
 
     private void getHoursAvailable(final ArrayList<String[]> myListHours) {
@@ -285,11 +285,13 @@ public class CalendarActivity extends AppCompatActivity {
                     String hrstart = hour[0] + ":00";
 
                     for (int i = 0; i < myListTutorats.size();i++) {
-                        if(date.equals(myListTutorats.get(i)[2]) && hrstart.equals(myListTutorats.get(i)[3]) && myListTutorats.get(i)[1].equals(0)) {
-                            confirmTutorat(myListTutorats.get(i)[0].toString());
+                        if(myListTutorats.get(i)[1].equals(1)){
+                            b.setEnabled(false);
+                        } else if(date.equals(myListTutorats.get(i)[2]) && hrstart.equals(myListTutorats.get(i)[3]) && myListTutorats.get(i)[1].equals(0)) {
+                        confirmTutorat(myListTutorats.get(i)[0].toString());
                         }
                     }
-                    b.setEnabled(false);
+
                 }
             });
 
@@ -298,7 +300,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void getMyTutorats() {
-        final String URL_POST_COURS = "http://10.0.2.2:8000/api/tutorat/student/" + dataManager.getMyId();
+        final String URL_POST_COURS = "https://tutapp-rs.herokuapp.com/api/tutorat/student/" + dataManager.getMyId();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_POST_COURS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -1,6 +1,7 @@
 package com.grasset.tutapp.tutapp_grasset;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class ShoppingActivity extends AppCompatActivity {
     TextView coursLabel,tutorLabel, dateLabel, hourLabel;
     Button confirmationButton;
     private static final String TAG = ShoppingActivity.class.getName();
-    private String URL_POST = "http://10.0.2.2:8000/api/tutorat/save";
+    private String URL_POST = "https://tutapp-rs.herokuapp.com/api/tutorat/save";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,12 @@ public class ShoppingActivity extends AppCompatActivity {
         dateLabel = findViewById(R.id.dateLabel);
         hourLabel = findViewById(R.id.hourLabel);
         confirmationButton = findViewById(R.id.confirmationButton);
+
+        coursLabel.setTextColor(Color.WHITE);
+        tutorLabel.setTextColor(Color.WHITE);
+        dateLabel.setTextColor(Color.WHITE);
+        hourLabel.setTextColor(Color.WHITE);
+        confirmationButton.setTextColor(Color.WHITE);
 
         confirmationButton.setOnClickListener(new View.OnClickListener() {
             @Override

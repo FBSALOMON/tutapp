@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="com.grasset.tutapp.tutapp_grasset.MainActivity">
 
     <LinearLayout
@@ -11,28 +12,61 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/myUser"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/user"
-            android:inputType="textPersonName" />
+            android:layout_height="100dp"
+            android:layout_marginTop="85dp"
+            android:padding="10dp"
+            app:srcCompat="@drawable/logomini" />
 
-        <EditText
-            android:id="@+id/myPassword"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                app:srcCompat="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:capitalize="sentences"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="L’appli pour les Tutorats de pairs" />
+
+            <EditText
+                android:id="@+id/myUser"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/user"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/myPassword"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/login" />
+        </LinearLayout>
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

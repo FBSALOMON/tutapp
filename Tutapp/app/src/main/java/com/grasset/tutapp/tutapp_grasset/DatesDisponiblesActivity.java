@@ -151,7 +151,7 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
     }
 
     private void showDaysAvaibles() {
-        HashMap<Date, Integer> testPQP = new HashMap<>();
+        HashMap<Date, Integer> dateAndColor = new HashMap<>();
 
         for (int i = 0; i < myDatesAndHours.size(); i++) {
             String date[] = myDatesAndHours.get(i)[2].split("-");
@@ -173,8 +173,8 @@ public class DatesDisponiblesActivity extends AppCompatActivity {
             DateTime dateTime = new DateTime(year,month,day,00,00);
             Date dateYouWant = dateTime.toDate();
             Integer blue = (R.color.caldroid_light_red);
-            testPQP.put(dateYouWant,blue);
+            dateAndColor.put(dateYouWant,blue);
         }
-        caldroidFragment.setTextColorForDates(testPQP);
+        caldroidFragment.setTextColorForDates(dateAndColor);
     }
 }
